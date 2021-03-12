@@ -21,15 +21,9 @@ tlcs Program.cs
 ```
 and everything is handled for you! No repo; no nonsense.
 
-# Roadmap
-Currently we are on **version 1.0**, which includes:
-- Basic top level programming
-- No argument support
-
-However, **version 1.1** is being planned, which will include:
-- Argument support
-- Single liner support
-- Help menus
-
-Down the road, we would like to include:
-- direct coding into the terminal
+# Features of TLCS
+- Type `tlcs -t` to directly write C# into the terminal
+- Type `tlcs -s` to write a single-liner as an argument
+- Type `tlcs -h` or `tlcs help` to open the help menu
+- Type `tlcs {FILE_NAME}` to run a `.cs` file
+- Type `tlcs {FILE_NAME} {args}` if you C# file uses `string[] args`
