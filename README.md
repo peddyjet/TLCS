@@ -26,4 +26,4 @@ and everything is handled for you! No repo; no nonsense.
 - Type `tlcs -s` to write a single-liner as an argument
 - Type `tlcs -h` or `tlcs help` to open the help menu
 - Type `tlcs {FILE_NAME}` to run a `.cs` file
-- Type `tlcs {FILE_NAME} {args}` if you C# file uses `string[] args`
+- Type `tlcs {FILE_NAME} {args}` if your C# file uses `string[] args`
