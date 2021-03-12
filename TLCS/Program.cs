@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -48,7 +49,7 @@ namespace TLCS
                     {
                         file = Console.ReadLine();
                         string nstr = Path.GetTempPath();
-                        Run(nstr, file);
+                        Run(nstr, file, new string[0]);
                         Console.WriteLine();
                     }
                     
@@ -56,10 +57,16 @@ namespace TLCS
             
             string strWorkPath = Path.GetTempPath();
 
-            Run(strWorkPath, file);
+            List<string> rawargs = new List<string>();
+            for (int i = 0; i < args.Length; i++)
+            {
+                if(i == 0) { continue; }
+                rawargs.Add(args[i]);
+            }
+            Run(strWorkPath, file, rawargs.ToArray());
             #endregion
         }
-        static void Run(string strWorkPath, string file)
+        static void Run(string strWorkPath, string file,string[] rawargs)
         {
             if (!Directory.Exists(strWorkPath + DOTNETPATH)) { Directory.CreateDirectory(strWorkPath + DOTNETPATH); }
             if (!File.Exists(strWorkPath + DOTNETPATH + NAMEOFPROJECT))
@@ -84,12 +91,19 @@ namespace TLCS
                 fileStream.Write(Encoding.UTF8.GetBytes(file));
             }
             Console.WriteLine();
+            var args = new List<string>();
+            foreach (var item in rawargs)
+            {
+                args.Add(string.Concat(" ", item));
+            }
+            if (args.Count == 0) { args.Add(" "); }
+            
             using (var p = new Process())
             {
                 p.StartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/c cd {'"'}{strWorkPath + DOTNETPATH}{'"'} && dotnet run"
+                    Arguments = $"/c cd {'"'}{strWorkPath + DOTNETPATH}{'"'} && dotnet run{string.Concat(args.ToArray())}"
                 };
                 p.Start();
                 p.WaitForExit();
